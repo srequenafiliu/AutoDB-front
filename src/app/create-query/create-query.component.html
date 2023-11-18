@@ -1,28 +1,25 @@
 <form (ngSubmit)="createQuery()" #form="ngForm">
   <div class="row g-0">
-    <div class="form-check col-4 my-auto">
-      <input class="form-check-input" type="checkbox" value="schema-yes" id="create-schema" #schema_yes>
-      <label class="form-check-label" for="create-schema">Crear schema</label>
-    </div>
-    <div class="col-8" *ngIf="schema_yes.checked">
+    <div class="col-8">
       <label for="schema-name" class="form-label">Nombre del schema</label>
-      <input type="text" class="form-control" id="schema-name" placeholder="Nombre del schema">
+      <input type="text" class="form-control" id="schema-name" placeholder="Nombre del schema"
+      [(ngModel)]="query.name_db" [ngModelOptions]="{standalone: true}">
     </div>
+    <fieldset>
+        <legend>Nueva tabla</legend>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" placeholder="Nombre de la tabla" autocomplete="off">
+          <label for="name">Nombre de la tabla</label>
+        </div>
+        <select class="form-select" name="number-table">
+          <option value="0" hidden>--Tipos--</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+    </fieldset>
   </div>
-  <fieldset>
-      <legend>Nueva tabla</legend>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="name" placeholder="Nombre de la tabla" autocomplete="off">
-        <label for="name">Nombre de la tabla</label>
-      </div>
-      <select class="form-select" name="number-table">
-        <option value="0" hidden>--Tipos--</option>
-        <option value="2">2</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-  </fieldset>
   <div class="d-flex align-items-center">
     <div>Agregar&nbsp;</div>
     <select name="number-table" #numberTables>
@@ -34,4 +31,4 @@
     <button type="button" class="btn btn-primary rounded ms-5" (click)="addTable(+numberTables.value)">Continuar</button>
   </div>
 </form>
-<button class="btn btn-success" (click)="enviar()">Prueba para mandar persona</button>
+<button class="btn btn-success" (click)="createQuery()">Crear query</button>
