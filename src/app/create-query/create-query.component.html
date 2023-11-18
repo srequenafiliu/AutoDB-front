@@ -1,2 +1,26 @@
-<p>create-query works!</p>
+<form>
+  <div class="row g-0">
+    <div class="form-check col-4 my-auto">
+      <input class="form-check-input" type="checkbox" value="schema-yes" id="create-schema" #schema_yes>
+      <label class="form-check-label" for="create-schema">Crear schema</label>
+    </div>
+    <div class="col-8" *ngIf="schema_yes.checked">
+      <label for="schema-name" class="form-label">Nombre del schema</label>
+      <input type="text" class="form-control" id="schema-name" placeholder="Nombre del schema">
+    </div>
+  </div>
+  <fieldset>
+      <legend>Nueva tabla</legend>
+      <div>Datos de la primera columna</div>
+  </fieldset>
+  <div class="d-flex">
+    <div>Agregar&nbsp;</div>
+    <select name="number-table" (change)="addTable()">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+    <div>&nbsp;tabla(s)</div>
+  </div>
+</form>
 <button class="btn btn-success" (click)="enviar()">Prueba para mandar persona</button>
