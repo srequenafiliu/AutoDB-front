@@ -1,15 +1,15 @@
-<form (ngSubmit)="createQuery()" #form="ngForm">
+<form #form="ngForm">
   <div class="row g-0">
     <div class="col-8">
-      <label for="schema-name" class="form-label">Nombre del schema</label>
+      <legend>Nombre del schema</legend>
       <input type="text" class="form-control" id="schema-name" placeholder="Nombre del schema"
         [(ngModel)]="query.name_db" [ngModelOptions]="{standalone: true}">
     </div>
-    <fieldset>
+    <fieldset class="table">
       <legend>Nueva tabla</legend>
       <div class="form-floating">
         <input type="text" class="form-control" id="name_table" placeholder="Nombre de la tabla"
-        autocomplete="off" (input)="getSelectOptions()">
+        autocomplete="off">
         <label for="name_table">Nombre de la tabla</label>
       </div>
       <div class="p-4">
@@ -65,16 +65,6 @@
             <label class="form-check-label" for="unique">Única</label>
           </div>
         </div>
-        <div class="d-flex justify-content-evenly w-75">
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="foreign-key">
-            <label class="form-check-label" for="foreign-key">Clave foránea</label>
-          </div>
-          <select class="form-select" name="tables">
-            <option value="0" hidden>--Tablas--</option>
-            <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
-          </select>
-        </div>
       </div>
     </fieldset>
   </div>
@@ -88,5 +78,21 @@
     <div>&nbsp;tabla(s)</div>
     <button type="button" class="btn btn-primary rounded ms-5" (click)="addTable(+numberTables.value)">Continuar</button>
   </div>
+  <fieldset>
+    <legend>Claves foráneas</legend>
+    <select class="form-select" name="tables-1" (mouseenter)="getSelectOptions()" #tables_1>
+      <option value="0" hidden>--Tablas--</option>
+      <option value="1">--Tablas nuevas--</option>
+      <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
+    </select>
+    <select class="form-select" name="column" *ngIf="tables_1.value != '0'">
+      <option value="0" hidden>--Columnas tabla--</option>
+      <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
+    </select>
+    <select class="form-select" name="tables-2">
+      <option value="0" hidden>--Tablas--</option>
+      <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
+    </select>
+  </fieldset>
 </form>
-<button class="btn btn-success" (click)="createQuery()">Crear query</button>
+<button type="submit" class="btn btn-success" (click)="createQuery()">Crear query</button>
