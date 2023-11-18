@@ -30,7 +30,13 @@ export class CreateQueryComponent implements OnInit {
     });
   }
 
-  addTable() {
-    document.querySelector('form')?.insertBefore(this.tabla_vacia.cloneNode(true), this.tabla_vacia)
+  addTable(numberTables:number) {
+    for(let i = 0 ; i < numberTables; i++)
+      document.querySelector('form')?.insertBefore(this.tabla_vacia.cloneNode(true), this.tabla_vacia)
+  }
+
+  createQuery() {
+    console.log("En desarrollo");
+
   }
 }

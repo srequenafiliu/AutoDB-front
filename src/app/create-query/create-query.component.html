@@ -1,4 +1,4 @@
-<form>
+<form (ngSubmit)="createQuery()" #form="ngForm">
   <div class="row g-0">
     <div class="form-check col-4 my-auto">
       <input class="form-check-input" type="checkbox" value="schema-yes" id="create-schema" #schema_yes>
@@ -11,16 +11,27 @@
   </div>
   <fieldset>
       <legend>Nueva tabla</legend>
-      <div>Datos de la primera columna</div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="name" placeholder="Nombre de la tabla" autocomplete="off">
+        <label for="name">Nombre de la tabla</label>
+      </div>
+      <select class="form-select" name="number-table">
+        <option value="0" hidden>--Tipos--</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
   </fieldset>
-  <div class="d-flex">
+  <div class="d-flex align-items-center">
     <div>Agregar&nbsp;</div>
-    <select name="number-table" (change)="addTable()">
+    <select name="number-table" #numberTables>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
     </select>
     <div>&nbsp;tabla(s)</div>
+    <button type="button" class="btn btn-primary rounded ms-5" (click)="addTable(+numberTables.value)">Continuar</button>
   </div>
 </form>
 <button class="btn btn-success" (click)="enviar()">Prueba para mandar persona</button>
