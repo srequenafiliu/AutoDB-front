@@ -3,21 +3,74 @@
     <div class="col-8">
       <label for="schema-name" class="form-label">Nombre del schema</label>
       <input type="text" class="form-control" id="schema-name" placeholder="Nombre del schema"
-      [(ngModel)]="query.name_db" [ngModelOptions]="{standalone: true}">
+        [(ngModel)]="query.name_db" [ngModelOptions]="{standalone: true}">
     </div>
     <fieldset>
-        <legend>Nueva tabla</legend>
+      <legend>Nueva tabla</legend>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="name_table" placeholder="Nombre de la tabla" autocomplete="off">
+        <label for="name_table">Nombre de la tabla</label>
+      </div>
+      <div class="p-4">
+        <legend>Nueva columna</legend>
         <div class="form-floating">
-          <input type="text" class="form-control" id="name" placeholder="Nombre de la tabla" autocomplete="off">
-          <label for="name">Nombre de la tabla</label>
+          <input type="text" class="form-control" id="name_field" placeholder="Nombre de la columna" autocomplete="off">
+          <label for="name_field">Nombre de la columna</label>
         </div>
         <select class="form-select" name="number-table">
           <option value="0" hidden>--Tipos--</option>
-          <option value="2">2</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+          <option value="INTEGER/INT">INTEGER/INT</option>
+          <option value="VARCHAR/CHAR">VARCHAR/CHAR</option>
+          <option value="DECIMAL/NUMERIC">DECIMAL/NUMERIC</option>
+          <option value="DATE/TIME/TIMESTAMP">DATE/TIME/TIMESTAMP</option>
+          <option value="BOOLEAN">BOOLEAN</option>
+          <option value="BLOB/CLOB">BLOB/CLOB</option>
+          <option value="FLOAT/REAL/DOUBLE">FLOAT/REAL/DOUBLE</option>
+          <option value="ARRAY">ARRAY</option>
         </select>
+        <div class="form-floating">
+          <input type="number" class="form-control" id="size" placeholder="Longitud máxima del valor"
+            autocomplete="off">
+          <label for="size">Longitud máxima del valor</label>
+        </div>
+        <select class="form-select" name="default">
+          <option value="0" hidden>--Ninguno--</option>
+          <option value="Personalizado">Personalizado</option>
+          <option value="NULL">NULL</option>
+          <option value="CURRENT_TIMESTAMP">CURRENT_TIMESTAMP</option>
+        </select>
+        <div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="not-null">
+            <label class="form-check-label" for="not-null">No puede ser nulo</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="ai">
+            <label class="form-check-label" for="ai">Auto-incremental</label>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between w-50">
+          <span class="form-label">Tipo de clave:&nbsp;</span>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="keys" id="null" checked>
+            <label class="form-check-label" for="null">Ninguna</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="keys" id="primary">
+            <label class="form-check-label" for="primary">Primaria</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="keys" id="unique">
+            <label class="form-check-label" for="unique">Única</label>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between w-50">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="foreign-key">
+            <label class="form-check-label" for="foreign-key">Clave foránea</label>
+          </div>
+        </div>
+      </div>
     </fieldset>
   </div>
   <div class="d-flex align-items-center">
@@ -28,7 +81,8 @@
       <option value="3">3</option>
     </select>
     <div>&nbsp;tabla(s)</div>
-    <button type="button" class="btn btn-primary rounded ms-5" (click)="addTable(+numberTables.value)">Continuar</button>
+    <button type="button" class="btn btn-primary rounded ms-5"
+      (click)="addTable(+numberTables.value)">Continuar</button>
   </div>
 </form>
 <button class="btn btn-success" (click)="createQuery()">Crear query</button>
