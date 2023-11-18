@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IPerson } from '../interfaces/i-person';
 import { PersonService } from '../services/person.service';
 import { IDatabase } from '../interfaces/i-database';
@@ -16,10 +16,10 @@ export class CreateQueryComponent implements OnInit {
     name_db: "",
     tables: []
   }
-  constructor(private personService:PersonService, private renderer: Renderer2) { }
+  constructor(private personService:PersonService) { }
 
   ngOnInit(): void {
-    this.tabla_vacia = <HTMLElement> document.querySelector('fieldset');
+    this.tabla_vacia = <HTMLElement> document.querySelector('fieldset.table');
   }
 
   newPerson():IPerson { // Borrar
@@ -41,22 +41,13 @@ export class CreateQueryComponent implements OnInit {
     container.appendChild(this.tabla_vacia.cloneNode(true));
     let inputs_table = container.querySelectorAll('input');
     for (let inp of Array.from(inputs_table)) {
-      if (inp.getAttribute("id")?.includes("name_table")) {
-        const range = document.createRange();
-        const fragment = range.createContextualFragment(`<input type="text" class="form-control" id="name_table${this.tablas}"
-        placeholder="Nombre de la tabla" autocomplete="off" (input)="getSelectOptions()">`);
-        inp = fragment.firstChild as HTMLInputElement;
-        console.log(inp);
-      }
       inp.setAttribute("id", inp.getAttribute("id")!+this.tablas)
       inp.value = ""
     }
     let labels_table = container.querySelectorAll('label');
     for (let lab of Array.from(labels_table)) lab.setAttribute("for", lab.getAttribute("for")!+this.tablas)
     this.tablas++;
-  console.log(container.querySelector("fieldset"));
-
-    return <HTMLFieldSetElement> container.querySelector("fieldset")
+    return <HTMLFieldSetElement> container.querySelector("fieldset.table")
   }
 
   addTable(numberTables:number) {
@@ -66,12 +57,11 @@ export class CreateQueryComponent implements OnInit {
 
   getTableNames():string[] {
     let tableNames:string[] = []
-    for(let tabla of Array.from(document.querySelectorAll('fieldset'))) {
+    for(let tabla of Array.from(document.querySelectorAll('fieldset.table'))) {
       let container = document.createElement("div")
       container.appendChild(tabla.cloneNode(true));
       tableNames.push(container.getElementsByTagName('input')[0].value)
     }
-    console.log("Chorprecha");
     return tableNames;
   }
 
