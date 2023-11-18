@@ -1,0 +1,4 @@
+npm i bootstrap
+npm i bootswatch@5.3.0
+npm i @ng-bootstrap/ng-bootstrap
+npm i @fortawesome/fontawesome-free
