@@ -1,39 +1,23 @@
-<figure class="text-justify m-5">
-  <div style="max-width: 50rem;">
-    <h2>Nuestro proyecto
-    </h2>
-    <p align="justify"> En nuestra aplicación web, los usuarios tendrán acceso a AutoDB,
-      una herramienta que facilita la generación de Querys mediante un
-      <a class="link" [routerLink]="['/create-query']" [routerLinkActive]="['active']">formulario en línea.</a></p>
-      <p align="justify">Para aprovechar sus funcionalidades, los usuarios deben completar el formulario de creación de tablas,
-       asegurándose de proporcionar toda la información completa en todos los campos.
-       Pueden agregar tantas tablas y columnas como deseen utilizando los selectores y el botón "Continuar".</p>
-
-       <p align="justify">Una vez finalizado el proceso, al hacer clic en el botón "Crear Query", los datos se enviarán al servidor,
-       donde serán procesados. Posteriormente, el servidor devolverá una Query que, al ejecutarse desde nuestro gestor de bases de datos,
-       creará una base de datos con los parámetros establecidos.
-
-
-
-    </p>
-
+<div class="row g-0 my-4">
+  <div class="col-lg-7 order-lg-2 text-center"><img class="bg-dark p-5 rounded" alt="Logo de AutoDB" src="./assets/logo.png"></div>
+  <div class="col-lg-5 mt-3 mt-lg-0 text-center">
+    <h1 class="fx-bolder">Bienvenid@s a AutoDB</h1>
+    <div>
+      <div class="text-start my-3">
+        Esta aplicación web pretende automatizar la generación de querys mediante un
+        <a class="link" [routerLink]="['/create-query']">formulario en línea.</a>
+      </div>
+      <div class="text-start my-3">
+        Para aprovechar sus funcionalidades, los usuarios deben completar el formulario de creación de tablas,
+        asegurándose de proporcionar toda la información completa en todos los campos.
+        Pueden agregar tantas columnas a la tabla como deseen utilizando los selectores y el botón
+        <span class="fst-italic">Agregar</span>.
+      </div>
+      <div class="text-start mb-3">
+        Una vez finalizado el proceso, al hacer clic en el botón <span class="fst-italic">Crear query</span>,
+        los datos se enviarán al servidor, donde serán procesados. Posteriormente, el servidor devolverá una Query que,
+        al ejecutarse desde el gestor de bases de datos del usuario, creará una base de datos con los parámetros establecidos.
+      </div>
+    </div>
   </div>
-
-  </figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
