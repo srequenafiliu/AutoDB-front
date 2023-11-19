@@ -9,6 +9,5 @@ export interface IData {
   unique:boolean,
   autoincrement:boolean,
   fk?:IForeignKey,
-  first_field:boolean,
   last_field:boolean
 }

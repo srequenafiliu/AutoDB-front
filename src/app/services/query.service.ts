@@ -7,8 +7,9 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class QueryService {
-  private personUrl = "autodb-backend/v1/generate-sql"
+  private queryUrl = "autodb-backend"
   constructor(private http:HttpClient) { }
 
-  sendQuery = (newQuery:IDatabase):Observable<IDatabase> => this.http.post<IDatabase>(this.personUrl, newQuery).pipe(map(response => response));
+  checkHealth = ():Observable<void> => this.http.get<void>(`${this.queryUrl}/checkHealth`);
+  sendQuery = (newQuery:IDatabase):Observable<IDatabase> => this.http.post<IDatabase>(`${this.queryUrl}/v1/generate-sql`, newQuery).pipe(map(response => response));
 }

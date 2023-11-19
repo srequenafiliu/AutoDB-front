@@ -17,10 +17,19 @@ export class CreateQueryComponent implements OnInit {
   }
   schema!:string
   tipo:string = '0';
+  status_ok:boolean = false;
+
   constructor(private queryService:QueryService) { }
 
   ngOnInit(): void {
     this.tabla_vacia = <HTMLElement> document.querySelector('.tabla_datos');
+  }
+
+  checkStatus() {
+    this.queryService.checkHealth().subscribe({
+      next:()=>this.status_ok = true,
+      error:e=>console.log(e)
+    })
   }
 
   changeAttr(clase:string):HTMLDivElement {
@@ -41,7 +50,7 @@ export class CreateQueryComponent implements OnInit {
 
   addTable(numberTables:number) {
     for(let i = 0 ; i < numberTables; i++)
-      document.querySelector('div.row')?.appendChild(this.changeAttr(".tabla_datos").cloneNode(true))
+      document.getElementById('inputs')?.appendChild(this.changeAttr(".tabla_datos").cloneNode(true))
   }
 
   addColumn(numberCols:number) {
@@ -73,7 +82,6 @@ export class CreateQueryComponent implements OnInit {
           pk:this.getLabelText(column, 'keys') == 'Primaria',
           unique:this.getLabelText(column, 'keys') == 'Única',
           autoincrement:(<HTMLInputElement>column.querySelector('input[name="ai"]')).checked,
-          first_field: i==0,
           last_field: i==Array.from(container.querySelectorAll('div.column')).length-1
         }
         data_array.push(data)
