@@ -27,7 +27,7 @@ export class CreateQueryComponent implements OnInit {
   }
 
   checkStatus() {
-    this.queryService.checkHealth().subscribe({
+    this.queryService.checkHealthQuery().subscribe({
       next:()=>this.status_ok = true,
       error:e=>console.log(e)
     })
