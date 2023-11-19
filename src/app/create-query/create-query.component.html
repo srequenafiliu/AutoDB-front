@@ -1,52 +1,69 @@
-<form #form="ngForm">
+<form (ngSubmit)="createQuery()" #form="ngForm">
   <div class="row g-0">
     <div class="col-8">
       <legend>Nombre del schema</legend>
-      <input type="text" class="form-control" id="schema-name" placeholder="Nombre del schema"
-        [(ngModel)]="query.name_db" [ngModelOptions]="{standalone: true}">
+      <div class="form-floating">
+        <input type="text" class="form-control" name="schema-name" id="schema-name" placeholder="Nombre del schema"
+        [(ngModel)]="query.name_db" autocomplete="off" required>
+        <label for="name_table">Nombre del schema</label>
+      </div>
     </div>
-    <fieldset class="table">
+    <div class="tabla_datos">
       <legend>Nueva tabla</legend>
       <div class="form-floating">
-        <input type="text" class="form-control" id="name_table" placeholder="Nombre de la tabla"
-        autocomplete="off">
+        <input type="text" class="form-control" name="name_table" id="name_table" placeholder="Nombre de la tabla"
+        autocomplete="off" required>
         <label for="name_table">Nombre de la tabla</label>
       </div>
-      <div class="p-4">
+      <div class="column p-4">
         <legend>Nueva columna</legend>
         <div class="form-floating">
-          <input type="text" class="form-control" id="name_field" placeholder="Nombre de la columna" autocomplete="off">
+          <input type="text" class="form-control" name="name_field" id="name_field" placeholder="Nombre de la columna" autocomplete="off">
           <label for="name_field">Nombre de la columna</label>
         </div>
-        <select class="form-select" name="number-table">
-          <option value="0" hidden>--Tipos--</option>
-          <option value="INTEGER/INT">INTEGER/INT</option>
-          <option value="VARCHAR/CHAR">VARCHAR/CHAR</option>
-          <option value="DECIMAL/NUMERIC">DECIMAL/NUMERIC</option>
-          <option value="DATE/TIME/TIMESTAMP">DATE/TIME/TIMESTAMP</option>
-          <option value="BOOLEAN">BOOLEAN</option>
-          <option value="BLOB/CLOB">BLOB/CLOB</option>
-          <option value="FLOAT/REAL/DOUBLE">FLOAT/REAL/DOUBLE</option>
-          <option value="ARRAY">ARRAY</option>
-        </select>
+        <div>
+          <span class="form-label">Tipos de datos:&nbsp;</span>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="types_data" id="INTEGER" value="INTEGER" checked>
+            <label class="form-check-label" for="INTEGER">INTEGER</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="types_data" id="VARCHAR" value="VARCHAR">
+            <label class="form-check-label" for="VARCHAR">VARCHAR</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="types_data" id="DECIMAL" value="DECIMAL">
+            <label class="form-check-label" for="DECIMAL">DECIMAL</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="types_data" id="TIMESTAMP" value="TIMESTAMP">
+            <label class="form-check-label" for="TIMESTAMP">TIMESTAMP</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="types_data" id="BOOLEAN" value="BOOLEAN">
+            <label class="form-check-label" for="BOOLEAN">BOOLEAN</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="types_data" id="FLOAT" value="FLOAT">
+            <label class="form-check-label" for="FLOAT">FLOAT</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="types_data" id="ARRAY" value="ARRAY">
+            <label class="form-check-label" for="ARRAY">ARRAY</label>
+          </div>
+        </div>
         <div class="form-floating">
-          <input type="number" class="form-control" id="size" placeholder="Longitud máxima del valor"
+          <input type="number" class="form-control" name="size" id="size" placeholder="Longitud máxima del valor"
             autocomplete="off">
           <label for="size">Longitud máxima del valor</label>
         </div>
-        <select class="form-select" name="default">
-          <option value="0" hidden>--Ninguno--</option>
-          <option value="Personalizado">Personalizado</option>
-          <option value="NULL">NULL</option>
-          <option value="CURRENT_TIMESTAMP">CURRENT_TIMESTAMP</option>
-        </select>
         <div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="not-null">
+            <input class="form-check-input" type="checkbox" name="not-null" id="not-null">
             <label class="form-check-label" for="not-null">No puede ser nulo</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="ai">
+            <input class="form-check-input" type="checkbox" name="ai" id="ai">
             <label class="form-check-label" for="ai">Auto-incremental</label>
           </div>
         </div>
@@ -57,16 +74,26 @@
             <label class="form-check-label" for="null">Ninguna</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="keys" id="primary">
+            <input class="form-check-input" type="radio" name="keys" id="primary" value="primary">
             <label class="form-check-label" for="primary">Primaria</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="keys" id="unique">
+            <input class="form-check-input" type="radio" name="keys" id="unique" value="unique">
             <label class="form-check-label" for="unique">Única</label>
           </div>
         </div>
       </div>
-    </fieldset>
+    </div>
+    <div class="d-flex align-items-center">
+      <div>Agregar&nbsp;</div>
+      <select name="number-columns" #numberColumns>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <div>&nbsp;columna(s)</div>
+      <button type="button" class="btn btn-primary rounded ms-5" (click)="addColumn(+numberColumns.value)">Continuar</button>
+    </div>
   </div>
   <div class="d-flex align-items-center">
     <div>Agregar&nbsp;</div>
@@ -78,9 +105,9 @@
     <div>&nbsp;tabla(s)</div>
     <button type="button" class="btn btn-primary rounded ms-5" (click)="addTable(+numberTables.value)">Continuar</button>
   </div>
-  <fieldset>
+  <!-- <div>
     <legend>Claves foráneas</legend>
-    <select class="form-select" name="tables-1" (mouseenter)="getSelectOptions()" #tables_1>
+    <select class="form-select" name="tables-1" #tables_1>
       <option value="0" hidden>--Tablas--</option>
       <option value="1">--Tablas nuevas--</option>
       <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
@@ -93,6 +120,6 @@
       <option value="0" hidden>--Tablas--</option>
       <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
     </select>
-  </fieldset>
+  </div> -->
+  <button type="submit" class="btn btn-success" [disabled]="form.invalid">Crear query</button>
 </form>
-<button type="submit" class="btn btn-success" (click)="createQuery()">Crear query</button>
