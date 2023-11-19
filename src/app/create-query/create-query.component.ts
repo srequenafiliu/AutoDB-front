@@ -18,6 +18,7 @@ export class CreateQueryComponent implements OnInit {
   schema!:string
   tipo:string = '0';
   status_ok:boolean = false;
+  queryArray!:string[];
 
   constructor(private queryService:QueryService) { }
 
@@ -86,10 +87,16 @@ export class CreateQueryComponent implements OnInit {
       this.query.tables.push({name_table: container.getElementsByTagName('input')[0].value, datos:data_array})
     }
     this.queryService.sendQuery(this.query).subscribe({
-      next:resp=>console.log(resp),
+      next:resp=>{console.log(resp)
+        this.queryArray = resp
+        console.log(this.queryArray)
+      },
       error:e=>console.log(e)
     })
     console.log(this.query);
   }
+
+  
+
 }
 

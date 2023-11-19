@@ -11,5 +11,5 @@ export class QueryService {
   constructor(private http:HttpClient) { }
 
   checkHealth = ():Observable<void> => this.http.get<void>(`${this.queryUrl}/checkHealth`);
-  sendQuery = (newQuery:IDatabase):Observable<IDatabase> => this.http.post<IDatabase>(`${this.queryUrl}/v1/generate-sql`, newQuery).pipe(map(response => response));
+  sendQuery = (newQuery:IDatabase):Observable<string[]> => this.http.post<string[]>(`${this.queryUrl}/v1/generate-sql`, newQuery).pipe(map(response => response));
 }
