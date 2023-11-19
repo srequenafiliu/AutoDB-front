@@ -120,3 +120,9 @@
     <button type="submit" class="btn btn-success" [disabled]="form.invalid">Crear query</button>
   </div>
 </form>
+
+<div class="row" *ngIf="queryArray && queryArray.length">
+  <div class="row" *ngfor="let linea of queryArray">
+    {{linea}}
+  </div>
+</div>
