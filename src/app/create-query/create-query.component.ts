@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IPerson } from '../interfaces/i-person';
-import { PersonService } from '../services/person.service';
 import { IDatabase } from '../interfaces/i-database';
 import { IData } from '../interfaces/i-data';
-import { ITable } from '../interfaces/i-table';
+import { QueryService } from '../services/query.service';
 
 @Component({
   selector: 'create-query',
@@ -19,7 +17,7 @@ export class CreateQueryComponent implements OnInit {
   }
   schema!:string
   tipo:string = '0';
-  constructor(private personService:PersonService) { }
+  constructor(private queryService:QueryService) { }
 
   ngOnInit(): void {
     this.tabla_vacia = <HTMLElement> document.querySelector('.tabla_datos');
@@ -82,6 +80,10 @@ export class CreateQueryComponent implements OnInit {
       }
       this.query.tables.push({name_table: container.getElementsByTagName('input')[0].value, datos:data_array})
     }
+    this.queryService.sendQuery(this.query).subscribe({
+      next:()=>console.log("Lo he conseguido"),
+      error:e=>console.log(e)
+    })
     console.log(this.query);
   }
 }
