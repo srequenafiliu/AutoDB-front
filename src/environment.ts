@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  baseUrl: 'https://c7ed-88-19-176-143.ngrok.i'
+  baseUrl: 'https://7933-88-19-176-143.ngrok.io'
 };
