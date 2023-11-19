@@ -1,29 +1,29 @@
 <form (ngSubmit)="createQuery()" #form="ngForm">
   <div class="h1 text-center mt-3">Crear query</div>
   <div class="row g-0 my-3">
-    <div class="col-6 my-auto">Antes de acceder al formulario, consulta el estado del servidor:</div>
-    <div class="text-center col-3"><input class="btn btn-outline-info rounded" (click)="checkStatus()" value="Consultar servidor"></div>
-    <div class="col-3 text-success text-center my-auto" *ngIf="status_ok">STATUS 200 OK</div>
+    <div class="col-lg-6 my-auto">Antes de acceder al formulario, consulta el estado del servidor:</div>
+    <div class="text-center col-lg-3 my-3 my-lg-3"><input class="btn btn-outline-info rounded" (click)="checkStatus()" value="Consultar servidor"></div>
+    <div class="col-lg-3 text-success text-center my-lg-auto" *ngIf="status_ok">STATUS 200 OK</div>
   </div>
-  <div class="bg-info bg-opacity-50 rounded p-3">
+  <div class="bg-info bg-opacity-50 rounded p-3" [ngClass]="{'d-none':!status_ok}">
     <div id="inputs">
       <div class="d-flex align-items-center">
         <div class="h3 mb-0">Schema&nbsp;&nbsp;</div>
         <div class="form-floating">
           <input type="text" class="form-control rounded" name="schema-name" id="schema-name" placeholder="Nombre del schema"
           [(ngModel)]="query.name_db" autocomplete="off" required>
-          <label for="name_table">Nombre del schema</label>
+          <label for="name_table">Nombre schema</label>
         </div>
       </div>
       <div class="tabla_datos border border-primary border-3 rounded m-2 p-2">
-        <div class="d-flex align-items-center">
+        <div class="d-lg-flex align-items-center">
           <div class="h4 mb-0">Nueva tabla&nbsp;&nbsp;</div>
           <div class="form-floating">
             <input type="text" class="form-control rounded" name="name_table" id="name_table" placeholder="Nombre de la tabla"
             autocomplete="off" required>
             <label for="name_table">Nombre de la tabla</label>
           </div>
-          <div class="d-flex align-items-center" id="addColumn">
+          <div class="d-md-flex align-items-center" id="addColumn">
             <div class="text-primary">&nbsp;&nbsp;Agregar&nbsp;</div>
             <select name="number-columns" #numberColumns>
               <option value="1">1</option>
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="column p-3">
-          <div class="d-flex align-items-center">
+          <div class="d-lg-flex align-items-center">
             <div class="h5 mb-0">Nueva columna&nbsp;&nbsp;</div>
             <div class="form-floating">
               <input type="text" class="form-control rounded" name="name_field" id="name_field"
@@ -46,48 +46,48 @@
           <div>
             <span class="form-label text-primary fw-bold">Tipos de datos:&nbsp;</span>
             <div class="row g-0">
-              <div class="col form-check">
+              <div class="col-3 col-lg form-check">
                 <input class="form-check-input" type="radio" name="types_data" id="INTEGER" value="INTEGER" checked>
                 <label class="form-check-label" for="INTEGER">INTEGER</label>
               </div>
-              <div class="col form-check">
+              <div class="col-12 col-md-3 col-lg form-check">
                 <input class="form-check-input" type="radio" name="types_data" id="VARCHAR" value="VARCHAR">
                 <label class="form-check-label" for="VARCHAR">VARCHAR</label>
               </div>
-              <div class="col form-check">
+              <div class="col-12 col-md-3 col-lg form-check">
                 <input class="form-check-input" type="radio" name="types_data" id="DECIMAL" value="DECIMAL">
                 <label class="form-check-label" for="DECIMAL">DECIMAL</label>
               </div>
-              <div class="col form-check">
+              <div class="col-12 col-md-3 col-lg form-check">
                 <input class="form-check-input" type="radio" name="types_data" id="TIMESTAMP" value="TIMESTAMP">
                 <label class="form-check-label" for="TIMESTAMP">TIMESTAMP</label>
               </div>
-              <div class="col form-check">
+              <div class="col-12 col-md-3 col-lg form-check">
                 <input class="form-check-input" type="radio" name="types_data" id="BOOLEAN" value="BOOLEAN">
                 <label class="form-check-label" for="BOOLEAN">BOOLEAN</label>
               </div>
-              <div class="col form-check">
+              <div class="col-12 col-md-3 col-lg form-check">
                 <input class="form-check-input" type="radio" name="types_data" id="FLOAT" value="FLOAT">
                 <label class="form-check-label" for="FLOAT">FLOAT</label>
               </div>
-              <div class="col form-check">
+              <div class="col-12 col-md-3 col-lg form-check">
                 <input class="form-check-input" type="radio" name="types_data" id="ARRAY" value="ARRAY">
                 <label class="form-check-label" for="ARRAY">ARRAY</label>
               </div>
             </div>
           </div>
           <div class="row g-0 my-1">
-            <div class="col-4 form-floating">
-              <input type="number" class="form-control rounded" name="size" id="size" placeholder="Longitud máxima del valor"
+            <div class="col-lg-4 form-floating">
+              <input type="number" class="form-control rounded" name="size" id="size" placeholder="Longitud máxima"
                 autocomplete="off">
-              <label for="size">Longitud máxima del valor</label>
+              <label for="size">Longitud máxima</label>
             </div>
-            <div class="col-8 text-danger my-auto">
-              &nbsp;&nbsp;Este campo solo se guardará si el tipo de dato es VARCHAR
+            <div class="col-lg-8 text-danger my-auto">
+              <span class="d-lg-none">&nbsp;&nbsp;</span>Este campo solo se guardará si el tipo de dato es VARCHAR
             </div>
           </div>
           <div class="row g-0">
-            <div class="col-6 row g-0">
+            <div class="col-lg-6 row g-0">
               <span class="col form-label text-primary fw-bold">Preferencias:&nbsp;</span>
               <div class="col form-check">
                 <input class="form-check-input" type="checkbox" name="not-null" id="not-null">
@@ -98,7 +98,7 @@
                 <label class="form-check-label" for="ai">Auto-incremental</label>
               </div>
             </div>
-            <div class="col-6 row g-0">
+            <div class="col-lg-6 row g-0">
               <span class="col form-label text-primary fw-bold">Tipo de clave:&nbsp;</span>
               <div class="col form-check">
                 <input class="form-check-input" type="radio" name="keys" id="null" checked>
@@ -121,6 +121,9 @@
   </div>
 </form>
 
-<div class="row" *ngIf="queryArray && queryArray.length">
-  <div *ngFor="let linea of queryArray">{{linea}}/div>
+<div class="row my-3" *ngIf="queryArray && queryArray.length">
+  <div class="offset-md-3 col-md-6 text-center bg-success bg-opacity-50 p-3 border border-success rounded">
+    <h2>Query resultante</h2>
+    <div *ngFor="let linea of queryArray">{{linea}}</div>
+  </div>
 </div>
