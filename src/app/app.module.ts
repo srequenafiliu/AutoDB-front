@@ -12,7 +12,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CreateQueryComponent } from './create-query/create-query.component';
 import { InProgressComponent } from './in-progress/in-progress.component';
-import { DocumentationComponent } from './documentation/documentation.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
     NavbarComponent,
     AboutUsComponent,
     CreateQueryComponent,
-    InProgressComponent,
-    DocumentationComponent
+    InProgressComponent
   ],
   imports: [
     BrowserModule,
