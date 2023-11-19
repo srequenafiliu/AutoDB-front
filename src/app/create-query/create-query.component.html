@@ -122,7 +122,5 @@
 </form>
 
 <div class="row" *ngIf="queryArray && queryArray.length">
-  <div class="row" *ngfor="let linea of queryArray">
-    {{linea}}
-  </div>
+  <div *ngFor="let linea of queryArray">{{linea}}/div>
 </div>
