@@ -23,6 +23,16 @@
             autocomplete="off" required>
             <label for="name_table">Nombre de la tabla</label>
           </div>
+          <div class="d-flex align-items-center" id="addColumn">
+            <div class="text-primary">&nbsp;&nbsp;Agregar&nbsp;</div>
+            <select name="number-columns" #numberColumns>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <div class="text-primary">&nbsp;columna(s)</div>
+            <button type="button" class="btn btn-outline-primary rounded ms-3" (click)="addColumn(+numberColumns.value)">Agregar</button>
+          </div>
         </div>
         <div class="column p-3">
           <div class="d-flex align-items-center">
@@ -32,19 +42,9 @@
               placeholder="Nombre de la columna" autocomplete="off">
               <label for="name_field">Nombre de la columna</label>
             </div>
-            <div class="d-flex align-items-center">
-              <div class="text-primary">&nbsp;&nbsp;Agregar&nbsp;</div>
-              <select name="number-columns" #numberColumns>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-              <div class="text-primary">&nbsp;columna(s)</div>
-              <button type="button" class="btn btn-outline-primary rounded ms-3" (click)="addColumn(+numberColumns.value)">Agregar</button>
-            </div>
           </div>
           <div>
-            <span class="form-label">Tipos de datos:&nbsp;</span>
+            <span class="form-label text-primary fw-bold">Tipos de datos:&nbsp;</span>
             <div class="row g-0">
               <div class="col form-check">
                 <input class="form-check-input" type="radio" name="types_data" id="INTEGER" value="INTEGER" checked>
@@ -76,65 +76,47 @@
               </div>
             </div>
           </div>
-          <div class="form-floating">
-            <input type="number" class="form-control" name="size" id="size" placeholder="Longitud máxima del valor"
-              autocomplete="off">
-            <label for="size">Longitud máxima del valor</label>
-          </div>
-          <div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="not-null" id="not-null">
-              <label class="form-check-label" for="not-null">No puede ser nulo</label>
+          <div class="row g-0 my-1">
+            <div class="col-4 form-floating">
+              <input type="number" class="form-control rounded" name="size" id="size" placeholder="Longitud máxima del valor"
+                autocomplete="off">
+              <label for="size">Longitud máxima del valor</label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="ai" id="ai">
-              <label class="form-check-label" for="ai">Auto-incremental</label>
+            <div class="col-8 text-danger my-auto">
+              &nbsp;&nbsp;Este campo solo se guardará si el tipo de dato es VARCHAR
             </div>
           </div>
-          <div class="d-flex justify-content-between w-50">
-            <span class="form-label">Tipo de clave:&nbsp;</span>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="keys" id="null" checked>
-              <label class="form-check-label" for="null">Ninguna</label>
+          <div class="row g-0">
+            <div class="col-6 row g-0">
+              <span class="col form-label text-primary fw-bold">Preferencias:&nbsp;</span>
+              <div class="col form-check">
+                <input class="form-check-input" type="checkbox" name="not-null" id="not-null">
+                <label class="form-check-label" for="not-null">No puede ser nulo</label>
+              </div>
+              <div class="col form-check">
+                <input class="form-check-input" type="checkbox" name="ai" id="ai">
+                <label class="form-check-label" for="ai">Auto-incremental</label>
+              </div>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="keys" id="primary" value="primary">
-              <label class="form-check-label" for="primary">Primaria</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="keys" id="unique" value="unique">
-              <label class="form-check-label" for="unique">Única</label>
+            <div class="col-6 row g-0">
+              <span class="col form-label text-primary fw-bold">Tipo de clave:&nbsp;</span>
+              <div class="col form-check">
+                <input class="form-check-input" type="radio" name="keys" id="null" checked>
+                <label class="form-check-label" for="null">Ninguna</label>
+              </div>
+              <div class="col form-check">
+                <input class="form-check-input" type="radio" name="keys" id="primary" value="primary">
+                <label class="form-check-label" for="primary">Primaria</label>
+              </div>
+              <div class="col form-check">
+                <input class="form-check-input" type="radio" name="keys" id="unique" value="unique">
+                <label class="form-check-label" for="unique">Única</label>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="d-flex align-items-center">
-      <div>Agregar&nbsp;</div>
-      <select name="number-table" #numberTables>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-      <div>&nbsp;tabla(s)</div>
-      <button type="button" class="btn btn-primary rounded ms-5" (click)="addTable(+numberTables.value)">Continuar</button>
-    </div>
-    <!-- <div>
-      <legend>Claves foráneas</legend>
-      <select class="form-select" name="tables-1" #tables_1>
-        <option value="0" hidden>--Tablas--</option>
-        <option value="1">--Tablas nuevas--</option>
-        <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
-      </select>
-      <select class="form-select" name="column" *ngIf="tables_1.value != '0'">
-        <option value="0" hidden>--Columnas tabla--</option>
-        <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
-      </select>
-      <select class="form-select" name="tables-2">
-        <option value="0" hidden>--Tablas--</option>
-        <option [value]="tabla.name_table" *ngFor="let tabla of query.tables">{{tabla.name_table}}</option>
-      </select>
-    </div> -->
     <button type="submit" class="btn btn-success" [disabled]="form.invalid">Crear query</button>
   </div>
 </form>

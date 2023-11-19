@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IDatabase } from '../interfaces/i-database';
 import { IData } from '../interfaces/i-data';
 import { QueryService } from '../services/query.service';
@@ -9,7 +9,7 @@ import { QueryService } from '../services/query.service';
   styleUrls: ['./create-query.component.css']
 })
 export class CreateQueryComponent implements OnInit {
-  tabla_vacia!:HTMLElement
+  tabla_vacia!:HTMLElement;
   contador:number = 1
   query:IDatabase = {
     name_db: "",
@@ -22,7 +22,7 @@ export class CreateQueryComponent implements OnInit {
   constructor(private queryService:QueryService) { }
 
   ngOnInit(): void {
-    this.tabla_vacia = <HTMLElement> document.querySelector('.tabla_datos');
+    this.tabla_vacia = (<HTMLElement> document.querySelector('.tabla_datos')).cloneNode(true) as HTMLElement;
   }
 
   checkStatus() {
@@ -48,11 +48,6 @@ export class CreateQueryComponent implements OnInit {
     return <HTMLDivElement> container.querySelector(clase)
   }
 
-  addTable(numberTables:number) {
-    for(let i = 0 ; i < numberTables; i++)
-      document.getElementById('inputs')?.appendChild(this.changeAttr(".tabla_datos").cloneNode(true))
-  }
-
   addColumn(numberCols:number) {
     for(let i = 0 ; i < numberCols; i++)
       document.querySelector('div.tabla_datos')?.appendChild(this.changeAttr(".column").cloneNode(true))
@@ -74,10 +69,12 @@ export class CreateQueryComponent implements OnInit {
       container.appendChild(tabla.cloneNode(true));
       let data_array:IData[] = []
       for(let [i, column] of Array.from(container.querySelectorAll('div.column')).entries()) {
+        let type_data:string = this.getLabelText(column, 'types_data')
+        let size_data:number|null = type_data == 'VARCHAR' ? +(<HTMLInputElement>column.querySelector('input[name="size"]')).value : null
         let data = {
           name_field:(<HTMLInputElement>column.querySelector('input[name="name_field"]')).value,
-          type: this.getLabelText(column, 'types_data'),
-          size: +(<HTMLInputElement>column.querySelector('input[name="size"]')).value,
+          type: type_data,
+          size: size_data,
           non_null:(<HTMLInputElement>column.querySelector('input[name="not-null"]')).checked,
           pk:this.getLabelText(column, 'keys') == 'Primaria',
           unique:this.getLabelText(column, 'keys') == 'Única',
@@ -89,7 +86,7 @@ export class CreateQueryComponent implements OnInit {
       this.query.tables.push({name_table: container.getElementsByTagName('input')[0].value, datos:data_array})
     }
     this.queryService.sendQuery(this.query).subscribe({
-      next:()=>console.log("Lo he conseguido"),
+      next:resp=>console.log(resp),
       error:e=>console.log(e)
     })
     console.log(this.query);
